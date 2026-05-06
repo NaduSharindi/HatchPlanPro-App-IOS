@@ -4,12 +4,15 @@ class HatcheryDataService {
     static let shared = HatcheryDataService()
     private init() {}
     
-    // MARK: - Centralized Mock Data (From Figma)
+    // MARK: - Centralized Mock Data
     private let mockSensor = SensorData(temperature: 37.5, humidity: 58.0, co2Level: 0.4, timestamp: Date())
     
+    // Expanded mock batches to fill out the list view
     private let mockBatches = [
         Batch(id: "#B1024", breed: "Ross 308", targetEggSet: 15000, currentDay: 18, totalDays: 21, approvalStatus: "Approved"),
-        Batch(id: "#B1025", breed: "Cobb 500", targetEggSet: 12000, currentDay: 4, totalDays: 21, approvalStatus: "Pending")
+        Batch(id: "#B1025", breed: "Cobb 500", targetEggSet: 12000, currentDay: 4, totalDays: 21, approvalStatus: "Pending"),
+        Batch(id: "#B1026", breed: "Lohmann Brown", targetEggSet: 10000, currentDay: 10, totalDays: 21, approvalStatus: "Approved"),
+        Batch(id: "#B1027", breed: "Ross 308", targetEggSet: 14500, currentDay: 1, totalDays: 21, approvalStatus: "Pending")
     ]
     
     private let mockSupervisor = User(fullName: "Nimesha Fernando", firstName: "Nimesha", jobTitle: "Supervisor", employeeId: "HP-2024", facilityLocation: "Main Hatchery", role: .supervisor)
