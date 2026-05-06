@@ -15,7 +15,7 @@ class HatcheryDataService {
         Batch(id: "#B1027", breed: "Ross 308", targetEggSet: 14500, currentDay: 1, totalDays: 21, approvalStatus: "Pending")
     ]
     
-    private let mockSupervisor = User(fullName: "Nimesha Fernando", firstName: "Nimesha", jobTitle: "Supervisor", employeeId: "HP-2024", facilityLocation: "Main Hatchery", role: .supervisor)
+    private let mockSupervisor = User(fullName: "Nimesha Fernando", firstName: "Nimesha", jobTitle: "Supervisor", employeeId: "HP-2024", facilityLocation: "Main Hatchery",phoneNumber: "+94 77 123 4567", role: .supervisor)
 
     private let mockHistoryBatches = [
         Batch(id: "#B1020", breed: "Cobb 500", targetEggSet: 14500, currentDay: 21, totalDays: 21, approvalStatus: "Hatched", rating: 4.8, completionDate: "Oct 12, 2023"),

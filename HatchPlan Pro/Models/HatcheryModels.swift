@@ -19,6 +19,7 @@ struct User: Identifiable, Codable {
     let jobTitle: String
     let employeeId: String
     let facilityLocation: String
+    var phoneNumber: String
     let role: UserRole
 }
 
