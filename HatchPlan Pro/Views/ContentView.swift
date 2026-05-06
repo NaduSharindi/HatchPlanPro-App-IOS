@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    // Create the router here and inject it into the app
     @StateObject private var router = AppRouter()
     
     var body: some View {
@@ -18,15 +17,18 @@ struct ContentView: View {
                 SplashView()
             case .onboarding:
                 OnboardingView()
-            case .authentication:
-                LoginView() // The Biometric login view we made earlier
+            case .signIn:
+                SignInView()
+            case .signUp:
+                SignUpView()
+            case .completeProfile:
+                CompleteProfileView()
+                case .biometricSetup:
+                BiometricSetupView()
             case .loggedIn:
-                // We handle role-based routing inside LoginView right now,
-                // but you can expand this later.
-                Text("Dashboard Loading...")
+                SupervisorDashboardView() 
             }
         }
-        // This makes the router available to all sub-views
         .environmentObject(router)
     }
 }

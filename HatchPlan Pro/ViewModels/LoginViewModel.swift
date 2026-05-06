@@ -24,7 +24,7 @@ class LoginViewModel: ObservableObject {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authError in
                 DispatchQueue.main.async {
                     if success {
-                        self.setupMockUser(role: role)
+                        self.loadUserFromService(role: role)
                     } else {
                         self.errorMessage = "Authentication failed."
                     }
@@ -33,19 +33,16 @@ class LoginViewModel: ObservableObject {
         } else {
             // Simulator fallback
             DispatchQueue.main.async {
-                self.setupMockUser(role: role)
+                self.loadUserFromService(role: role)
             }
         }
     }
     
-    private func setupMockUser(role: UserRole) {
-        self.currentUser = User(
-            fullName: role == .manager ? "Sarah Manager" : "John Supervisor",
-            jobTitle: role == .manager ? "Operations Manager" : "Lead Supervisor",
-            employeeId: "HP-2026",
-            facilityLocation: "Main Hatchery",
-            role: role
-        )
-        self.isAuthenticated = true
+    private func loadUserFromService(role: UserRole) {
+        // Fetch the user from our new central service
+        HatcheryDataService.shared.fetchMockUser(for: role) { [weak self] fetchedUser in
+            self?.currentUser = fetchedUser
+            self?.isAuthenticated = true
+        }
     }
 }

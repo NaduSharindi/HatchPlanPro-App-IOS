@@ -9,49 +9,48 @@ import SwiftUI
 
 struct SplashView: View {
     @EnvironmentObject var router: AppRouter
-    @State private var isAnimating = false
+    @State private var showLoading = false
     
     var body: some View {
         ZStack {
-            // Main Background Color
-            Color.white.ignoresSafeArea()
+            // Dark background from Figma
+            Color(red: 0.1, green: 0.1, blue: 0.12).ignoresSafeArea()
             
             VStack {
                 Spacer()
                 
-                // Placeholder for your actual Logo image
-                // Replace "egg.fill" with your asset name later: Image("YourLogoName")
+                // Logo placeholder
                 Image(systemName: "egg.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 120, height: 120)
-                    .foregroundColor(.orange)
-                    .scaleEffect(isAnimating ? 1.0 : 0.8)
-                    .opacity(isAnimating ? 1.0 : 0.0)
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(Color(red: 0.95, green: 0.42, blue: 0.31)) // Figma Orange
                 
                 Text("HatchPlan Pro")
-                    .font(.largeTitle)
+                    .font(.title)
                     .fontWeight(.bold)
-                    .padding(.top, 10)
-                    .opacity(isAnimating ? 1.0 : 0.0)
+                    .foregroundColor(.white)
+                    .padding(.top, 16)
                 
                 Spacer()
                 
-                // Loading Indicator at the bottom
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .orange))
-                    .scaleEffect(1.5)
+                if showLoading {
+                    VStack(spacing: 12) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        Text("Loading parameters...")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
                     .padding(.bottom, 50)
+                }
             }
         }
         .onAppear {
-            // Animate the logo popping in
-            withAnimation(.easeOut(duration: 1.0)) {
-                isAnimating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                withAnimation { showLoading = true }
             }
-            
-            // Wait 2.5 seconds, then tell the router to go to Onboarding
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 router.navigate(to: .onboarding)
             }
         }
