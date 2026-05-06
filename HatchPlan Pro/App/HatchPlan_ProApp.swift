@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct HatchPlan_ProApp: App {
+struct SkillCircleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -4,4 +4,10 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <FileRef
+      location = "group:FirebaseManager.swift">
+   </FileRef>
+   <FileRef
+      location = "group:AuthViewModel.swift">
+   </FileRef>
 </Workspace>
