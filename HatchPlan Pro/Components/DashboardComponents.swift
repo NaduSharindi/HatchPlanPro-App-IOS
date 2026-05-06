@@ -200,3 +200,72 @@ struct NavBarItem: View {
         }
     }
 }
+
+// MARK: - Batch History List Row
+struct BatchHistoryRowView: View {
+    let batch: Batch
+    
+    var body: some View {
+        HStack {
+            // Left Column: Details
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Batch \(batch.id)")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                
+                Text("\(batch.breed) - \(batch.targetEggSet.formatted()) Eggs")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                
+                // Status & Date
+                HStack(spacing: 6) {
+                    Text(batch.approvalStatus)
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(batch.approvalStatus == "Hatched" ? .green : .red)
+                    
+                    Text("-")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    
+                    Text(batch.completionDate ?? "")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+            }
+            
+            Spacer(minLength: 20)
+            
+            // Right Column: Rating & Arrow
+            VStack(alignment: .trailing, spacing: 15) {
+                if let rating = batch.rating {
+                    HStack(spacing: 4) {
+                        Image(systemName: "star.fill")
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                        Text(String(format: "%.1f", rating))
+                            .font(.caption)
+                            .fontWeight(.bold)
+                        Text("/ 5.0")
+                            .font(.caption2)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.orange.opacity(0.1))
+                    .cornerRadius(8)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+    }
+}

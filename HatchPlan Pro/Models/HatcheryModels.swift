@@ -15,6 +15,7 @@ enum UserRole: String, Codable {
 struct User: Identifiable, Codable {
     let id = UUID()
     let fullName: String
+    let firstName: String
     let jobTitle: String
     let employeeId: String
     let facilityLocation: String
@@ -25,19 +26,23 @@ struct Batch: Identifiable, Codable {
     let id: String 
     let breed: String
     let targetEggSet: Int
-    let hatchDate: Date
-    let approvalStatus: String 
-    let progress: Double 
-    // NEW properties for the UI design
-    let currentDay: Int
-    let totalDays: Int
-    let nextPhase: String
+    let currentDay: Int 
+    let totalDays: Int 
+    let approvalStatus: String // "Approved", "Pending", "Hatched", "Failed"
+    
+    // NEW: Optional properties for historical batches
+    var rating: Double? 
+    var completionDate: String?
+    
+    var progress: Double {
+        return Double(currentDay) / Double(totalDays)
+    }
 }
 
 struct SensorData: Identifiable, Codable {
     let id = UUID()
     let temperature: Double
     let humidity: Double
+    let co2Level: Double 
     let timestamp: Date
-    let status: String // e.g., "Optimal Conditions"
 }
