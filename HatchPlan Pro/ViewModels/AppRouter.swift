@@ -16,15 +16,20 @@ enum AppState {
     case signUp
     case completeProfile
     case biometricSetup
-    case biometric
     case loggedIn
+    // NEW STATES FOR FORGOT PASSWORD FLOW
+    case forgotPasswordRequest
+    case forgotPasswordOTP
+    case forgotPasswordNew
+    case forgotPasswordSuccess
 }
 
 class AppRouter: ObservableObject {
     @Published var currentState: AppState = .splash
     
-    // Pass data between screens (like the user's email during signup)
+    // Data passing variables
     @Published var tempSignUpEmail: String = ""
+    @Published var tempResetEmail: String = "" // Stores email for the OTP screen
     
     func navigate(to state: AppState) {
         withAnimation {

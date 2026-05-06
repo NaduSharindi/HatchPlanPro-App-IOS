@@ -27,6 +27,14 @@ struct ContentView: View {
                 BiometricSetupView()
             case .loggedIn:
                 SupervisorDashboardView() 
+            case .forgotPasswordRequest:
+                ForgotPasswordRequestView()
+            case .forgotPasswordOTP:
+                ForgotPasswordOTPView()
+            case .forgotPasswordNew:
+                ForgotPasswordNewView()
+            case .forgotPasswordSuccess:
+                PasswordResetSuccessView()
             }
         }
         .environmentObject(router)

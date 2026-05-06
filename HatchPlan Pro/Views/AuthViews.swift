@@ -44,8 +44,8 @@ struct SignInView: View {
             HStack {
                 Spacer()
                 Button("Forgot Password?") {
-                    // Action
-                }
+    router.navigate(to: .forgotPasswordRequest)
+}
                 .font(.caption)
                 .foregroundColor(.blue)
                 .padding(.trailing, 24)
