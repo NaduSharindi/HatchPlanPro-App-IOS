@@ -22,12 +22,16 @@ struct User: Identifiable, Codable {
 }
 
 struct Batch: Identifiable, Codable {
-    let id: String
+    let id: String 
     let breed: String
     let targetEggSet: Int
     let hatchDate: Date
-    let approvalStatus: String
-    let progress: Double
+    let approvalStatus: String 
+    let progress: Double 
+    // NEW properties for the UI design
+    let currentDay: Int
+    let totalDays: Int
+    let nextPhase: String
 }
 
 struct SensorData: Identifiable, Codable {
@@ -35,4 +39,5 @@ struct SensorData: Identifiable, Codable {
     let temperature: Double
     let humidity: Double
     let timestamp: Date
+    let status: String // e.g., "Optimal Conditions"
 }
