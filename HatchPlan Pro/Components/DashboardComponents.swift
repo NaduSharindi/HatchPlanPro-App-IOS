@@ -269,3 +269,153 @@ struct BatchHistoryRowView: View {
         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
     }
 }
+
+// MARK: - Profile Summary Card
+struct ProfileSummaryCard: View {
+    let user: User
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            // Large Avatar
+            Circle()
+                .fill(Color.blue.opacity(0.1))
+                .frame(width: 70, height: 70)
+                .overlay(
+                    Text(String(user.firstName.prefix(1)))
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.blue)
+                )
+            
+            // User Details
+            VStack(alignment: .leading, spacing: 4) {
+                Text(user.fullName)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                Text(user.jobTitle)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                Text("ID: \(user.employeeId) • \(user.facilityLocation)")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            Spacer()
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+    }
+}
+
+// MARK: - Reusable Settings Row
+struct SettingsRowView: View {
+    let iconName: String
+    let title: String
+    let iconColor: Color
+    var isDestructive: Bool = false
+    
+    var body: some View {
+        HStack(spacing: 16) {
+            // Icon with colored background
+            ZStack {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(iconColor.opacity(0.1))
+                    .frame(width: 36, height: 36)
+                
+                Image(systemName: iconName)
+                    .foregroundColor(iconColor)
+                    .font(.system(size: 16, weight: .semibold))
+            }
+            
+            Text(title)
+                .font(.body)
+                .fontWeight(isDestructive ? .semibold : .regular)
+                .foregroundColor(isDestructive ? .red : .primary)
+            
+            Spacer()
+            
+            if !isDestructive {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.gray.opacity(0.5))
+            }
+        }
+        .padding(.vertical, 8)
+    }
+}
+
+// MARK: - Notification Row Component
+struct NotificationRowView: View {
+    let notification: AppNotification
+    
+    // Dynamically set the icon and colors based on the type
+    var styleOptions: (icon: String, color: Color, bg: Color) {
+        switch notification.type {
+        case .critical: return ("exclamationmark.triangle.fill", .red, .red.opacity(0.1))
+        case .warning: return ("exclamationmark.circle.fill", .orange, .orange.opacity(0.1))
+        case .info: return ("info.circle.fill", .blue, .blue.opacity(0.1))
+        case .success: return ("checkmark.circle.fill", .green, .green.opacity(0.1))
+        }
+    }
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 16) {
+            // Icon Background
+            ZStack {
+                Circle()
+                    .fill(styleOptions.bg)
+                    .frame(width: 48, height: 48)
+                
+                Image(systemName: styleOptions.icon)
+                    .foregroundColor(styleOptions.color)
+                    .font(.system(size: 20))
+            }
+            
+            // Text Content
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(notification.title)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    Text(notification.timeAgo)
+                        .font(.caption2)
+                        .foregroundColor(.gray)
+                }
+                
+                Text(notification.message)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2) // Keeps the UI tidy
+            }
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
+    }
+}
+
+// MARK: - Filter Pill Component
+struct FilterPillView: View {
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(isSelected ? .bold : .medium)
+                .foregroundColor(isSelected ? .white : .gray)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(isSelected ? Color.blue : Color.gray.opacity(0.1))
+                .cornerRadius(20)
+        }
+    }
+}

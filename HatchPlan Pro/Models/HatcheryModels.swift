@@ -46,3 +46,20 @@ struct SensorData: Identifiable, Codable {
     let co2Level: Double 
     let timestamp: Date
 }
+
+// MARK: - Notification Models
+enum NotificationType: String, Codable {
+    case critical
+    case warning
+    case info
+    case success
+}
+
+struct AppNotification: Identifiable, Codable {
+    let id = UUID()
+    let type: NotificationType
+    let title: String
+    let message: String
+    let timeAgo: String
+    var isRead: Bool = false
+}

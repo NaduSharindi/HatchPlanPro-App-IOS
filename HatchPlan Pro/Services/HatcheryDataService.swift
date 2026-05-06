@@ -23,6 +23,14 @@ class HatcheryDataService {
         Batch(id: "#B1018", breed: "Lohmann Brown", targetEggSet: 10000, currentDay: 21, totalDays: 21, approvalStatus: "Hatched", rating: 4.5, completionDate: "Sep 15, 2023")
     ]
 
+    // MARK: - Centralized Notification Mock Data
+    private let mockNotifications = [
+        AppNotification(type: .critical, title: "Critical: Temperature Drop", message: "Incubator 3 temp dropped below 37.0°C for Batch #B1024. Immediate action required.", timeAgo: "Just now"),
+        AppNotification(type: .warning, title: "Warning: High Humidity", message: "Humidity in Hatcher 2 exceeded 65% for Batch #B1025. Ventilation increased automatically.", timeAgo: "10m ago"),
+        AppNotification(type: .info, title: "System Update Complete", message: "HatchPlan Pro firmware updated to v4.2.1 successfully.", timeAgo: "2h ago"),
+        AppNotification(type: .success, title: "Batch #B1026 Approved", message: "Manager approval received for Batch #B1026. Incubation schedule started.", timeAgo: "Yesterday")
+    ]
+
     // MARK: - Simulated Fetch Functions
     func fetchActiveBatches(completion: @escaping ([Batch]) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { completion(self.mockBatches) }
@@ -38,5 +46,13 @@ class HatcheryDataService {
 
     func fetchHistoryBatches(completion: @escaping ([Batch]) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { completion(self.mockHistoryBatches) }
+    }
+
+    // NEW: Function to fetch notifications
+    func fetchNotifications(completion: @escaping ([AppNotification]) -> Void) {
+        // Simulating network delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { 
+            completion(self.mockNotifications) 
+        }
     }
 }

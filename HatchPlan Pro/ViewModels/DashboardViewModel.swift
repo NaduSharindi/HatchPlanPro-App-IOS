@@ -12,6 +12,8 @@ class DashboardViewModel: ObservableObject {
     @Published var activeBatches: [Batch] = []
     @Published var currentSensor: SensorData = SensorData(temperature: 0.0, humidity: 0.0, timestamp: Date())
     @Published var isLoading: Bool = false
+    @Published var historyBatches: [Batch] = []
+    @Published var notifications: [AppNotification] = []
     
     init() {
         fetchData()
@@ -19,6 +21,10 @@ class DashboardViewModel: ObservableObject {
     
     func fetchData() {
         isLoading = true
+
+        HatcheryDataService.shared.fetchNotifications { [weak self] notifications in
+            self?.notifications = notifications
+        }
         
         // 1. Ask the service for Sensor Data
         HatcheryDataService.shared.fetchLiveSensorData { [weak self] sensor in
