@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 // MARK: - Sensor Card UI
 struct SensorCardView: View {

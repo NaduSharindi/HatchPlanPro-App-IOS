@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 // MARK: - Custom Header
 struct DashboardHeaderView: View {
@@ -166,27 +167,7 @@ struct SensorMetricCard: View {
     }
 }
 
-// MARK: - Bottom Navigation Bar
-struct CustomBottomNavBar: View {
-    @State private var selectedTab = 0
-    
-    var body: some View {
-        HStack {
-            NavBarItem(iconName: "house.fill", isSelected: selectedTab == 0) { selectedTab = 0 }
-            Spacer()
-            NavBarItem(iconName: "calendar", isSelected: selectedTab == 1) { selectedTab = 1 }
-            Spacer()
-            NavBarItem(iconName: "chart.bar", isSelected: selectedTab == 2) { selectedTab = 2 }
-            Spacer()
-            NavBarItem(iconName: "person", isSelected: selectedTab == 3) { selectedTab = 3 }
-        }
-        .padding(.horizontal, 40)
-        .padding(.vertical, 15)
-        .background(Color.white)
-        .shadow(color: Color.black.opacity(0.05), radius: -5, x: 0, y: -2)
-    }
-}
-
+// MARK: - NavBarItem
 struct NavBarItem: View {
     let iconName: String
     let isSelected: Bool

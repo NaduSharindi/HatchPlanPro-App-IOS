@@ -17,7 +17,6 @@ enum AppState {
     case completeProfile
     case biometricSetup
     case loggedIn
-    // NEW STATES FOR FORGOT PASSWORD FLOW
     case forgotPasswordRequest
     case forgotPasswordOTP
     case forgotPasswordNew
